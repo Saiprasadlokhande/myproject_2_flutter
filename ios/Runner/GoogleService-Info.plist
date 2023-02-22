@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<false/>
+	<key>CLIENT_ID</key>
+	<string>650422191742-b9q24g8l4d3ntmr8jdii5mn8cmmon8ih.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.650422191742-b9q24g8l4d3ntmr8jdii5mn8cmmon8ih</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>650422191742-tds59b8jnh1c7qf5r0pc7ltirvm1lj5m.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDtYPv7MmFx2o9Yq9v8PnM7bUpvH7Z9TmE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>650422191742</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.app.project-2</string>
+	<key>PROJECT_ID</key>
+	<string>myproject-2-18848</string>
+	<key>STORAGE_BUCKET</key>
+	<string>myproject-2-18848.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:650422191742:ios:4f093c807c7675d21d3a2f</string>
+	<key>DATABASE_URL</key>
+	<string>https://myproject-2-18848-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
