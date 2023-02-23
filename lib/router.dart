@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:myproject_2_flutter/import_helper.dart';
 import 'package:myproject_2_flutter/views/IOT/My%20Devices.dart';
 import 'package:myproject_2_flutter/views/login&register/login.dart';
-import 'package:myproject_2_flutter/views/mobileView/my_home/add_room.dart';
 import 'package:myproject_2_flutter/views/mobileView/my_home/my_home_view.dart';
-import 'package:myproject_2_flutter/views/mobileView/searchSociety.dart';
+import 'package:myproject_2_flutter/views/mobileView/room_registration/searchSociety.dart';
+import 'package:myproject_2_flutter/views/mobileView/room_registration/select_room.dart';
 import 'package:myproject_2_flutter/views/splashscreen.dart';
 
 const String home = 'home';
@@ -53,7 +53,7 @@ final router = GoRouter(
                 GoRoute(
                     name: addRoom,
                     path: addRoom,
-                    builder: (context, state) => AddRoom()),
+                    builder: (context, state) => SelectRoom()),
               ]),
           GoRoute(
               name: myHome,

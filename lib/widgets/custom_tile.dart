@@ -84,9 +84,9 @@ Widget customBoxTile(
     double? fontSize,
     double? subtitleFontSize,
     FontWeight? fontWeight,
-    Function? onTap}) {
+    Function()? onTap}) {
   return InkWell(
-    onTap: () => onTap != null ? onTap() : () {},
+    onTap: onTap ?? () {},
     child: Container(
       width: 90.w,
       height: 10.h,
