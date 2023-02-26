@@ -1,9 +1,17 @@
 import 'package:myproject_2_flutter/import_helper.dart';
 
 class ActionButton extends StatefulWidget {
-  VoidCallback onTap;
+  GestureTapCallback onTap;
+  Color? bgColor;
+  Color? fontColor;
+
   String title;
-  ActionButton({Key? key, required this.title, required this.onTap});
+  ActionButton(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.bgColor,
+      this.fontColor});
 
   @override
   _ActionButtonState createState() => _ActionButtonState();
@@ -17,14 +25,15 @@ class _ActionButtonState extends State<ActionButton> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: kFontColor,
+          color: widget.bgColor ?? kFontColor,
         ),
         // width: 40.w,
         // height: 5.h,
         constraints: BoxConstraints(maxWidth: 40.w, maxHeight: 5.h),
         padding: const EdgeInsets.all(4),
-        child:
-            Center(child: customText(msg: widget.title, color: kPrimaryColor)),
+        child: Center(
+            child: customText(
+                msg: widget.title, color: widget.fontColor ?? kPrimaryColor)),
       ),
     );
   }

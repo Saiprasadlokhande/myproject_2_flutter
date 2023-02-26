@@ -30,26 +30,32 @@ class CustomTextField extends StatelessWidget {
   FontWeight? fontWeight;
   TextEditingController? controller;
   String? label;
+  FormFieldValidator? validator;
   String? hint;
+  int? maxLength;
   Function()? onTap;
   Widget? suffixIcon;
   ValueChanged<String>? onChanged;
   bool? enabled;
-  CustomTextField({
-    Key? key,
-    this.fontSize,
-    this.width,
-    this.color,
-    this.fontWeight,
-    this.overFlow,
-    this.hint,
-    this.onTap,
-    this.label,
-    this.controller,
-    this.enabled = false,
-    this.onChanged,
-    this.suffixIcon,
-  }) : super(key: key);
+  TextInputType? inputType;
+  CustomTextField(
+      {Key? key,
+      this.fontSize,
+      this.inputType,
+      this.width,
+      this.color,
+      this.fontWeight,
+      this.overFlow,
+      this.hint,
+      this.onTap,
+      this.label,
+      this.controller,
+      this.enabled = false,
+      this.onChanged,
+      this.suffixIcon,
+      this.maxLength,
+      this.validator})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +67,14 @@ class CustomTextField extends StatelessWidget {
         onTap: onTap,
         onChanged: onChanged ?? (String? val) {},
         enabled: enabled,
-        style: const TextStyle(
-          color: kTitleColor,
-        ),
+
+        style: const TextStyle(color: kTitleColor),
+        validator: validator,
+        keyboardType: inputType ?? TextInputType.text,
+        maxLength: maxLength,
         decoration: InputDecoration(
             labelText: label,
+            counterText: "",
             labelStyle: TextStyle(
               fontSize: fontSize ?? defaultFontSize,
               color: color ?? kTitleColor,

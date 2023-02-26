@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject_2_flutter/import_helper.dart';
 
 double defaultFontSize = 12.sp;
@@ -19,10 +20,11 @@ customTextStyle1({
   );
 }
 
-customText({
+Widget customText({
   required String msg,
   double? fontSize,
   double? width,
+  int? maxLines,
   Color? color,
   TextOverflow? overFlow,
   FontWeight? fontWeight,
@@ -32,11 +34,21 @@ customText({
     padding: EdgeInsets.all(padding ?? 4.0),
     child: Text(
       msg,
+      maxLines: maxLines,
       style: customTextStyle1(
-          color: color,
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          overFlow: overFlow),
+        color: color,
+        fontWeight: fontWeight,
+        fontSize: fontSize,
+        overFlow: overFlow,
+      ),
     ),
   );
+}
+
+customToast(String msg) {
+  return Fluttertoast.showToast(
+      msg: msg,
+      backgroundColor: kTitleColor,
+      textColor: kPrimaryColor,
+      toastLength: Toast.LENGTH_LONG);
 }

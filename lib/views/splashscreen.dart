@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:myproject_2_flutter/import_helper.dart';
 
@@ -13,6 +15,15 @@ class _SplashscreenState extends ConsumerState<Splashscreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    if (context.mounted) {
+      Future.delayed(const Duration(milliseconds: 500), () async {
+        String data = await DefaultAssetBundle.of(context)
+            .loadString("assets/localisation/strings.json");
+        final jsonResult = jsonDecode(data);
+        Global.localisation = Localisation.fromJson(jsonResult);
+        final auth = sessionManager.isSignedIn;
+      });
+    }
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:myproject_2_flutter/import_helper.dart';
 
-customTile() {
+Widget customTile() {
   return ConstrainedBox(
     constraints: BoxConstraints(
       maxWidth: 80.w,
@@ -170,13 +170,28 @@ Widget receiptCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         customText(msg: name!),
-        customText(msg: 'Room no: ${roomNo!}', fontSize: 8.sp),
-        customText(msg: 'Maintenance ${maintainanceAmount!}', fontSize: 8.sp),
-        customText(msg: 'Vehicle charge: ${vehicleCharge!}', fontSize: 8.sp),
-        customText(msg: 'Penalty: ${penalty!}', fontSize: 8.sp),
-        customText(msg: 'Final Amount: ${finalAmount!}', fontSize: 8.sp),
         customText(
-            msg: 'Paid: ${paymentModeIsOnline ? 'Online' : 'Cash'}',
+            msg: '${Global.localisation.en!.maintainance!.roomNo}: ${roomNo!}',
+            fontSize: 8.sp),
+        customText(
+            msg:
+                '${Global.localisation.en!.maintainance!.maintenance} ${maintainanceAmount!}',
+            fontSize: 8.sp),
+        customText(
+            msg:
+                '${Global.localisation.en!.maintainance!.vehicleCharge}: ${vehicleCharge!}',
+            fontSize: 8.sp),
+        customText(
+            msg:
+                '${Global.localisation.en!.maintainance!.penalty}: ${penalty!}',
+            fontSize: 8.sp),
+        customText(
+            msg:
+                '${Global.localisation.en!.maintainance!.finalAmount}: ${finalAmount!}',
+            fontSize: 8.sp),
+        customText(
+            msg:
+                '${Global.localisation.en!.maintainance!.paid}: ${paymentModeIsOnline ? '${Global.localisation.en!.maintainance!.online}' : '${Global.localisation.en!.maintainance!.cash}'}',
             fontSize: 8.sp),
       ],
     ),

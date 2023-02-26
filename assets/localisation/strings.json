@@ -1,0 +1,63 @@
+
+
+{
+  "title": "The Hood Junction",
+  "en": {
+    "splashScreen": {
+      "title": "Splash Screen"
+    },
+    "common": {
+      "owner": "Owner",
+      "rental": "Rental",
+      "resident": "resident",
+      "yes": "Yes",
+      "no": "No",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "reset": "Reset",
+      "success": "Success",
+      "failed": "Failed",
+      "noInternet": "No Internet"
+    },
+    "home": {
+      "myHome": "My Home",
+      "maintenance": "Maintenance",
+      "events": "Events",
+      "myDevices": "My Devices"
+    },
+    "mySociety": {
+      "societyAddress": "Society Address",
+      "searchSociety": "Search Society"
+    },
+    "room": {
+      "selectRoom": "Select Room",
+      "myRoom": "My Room"
+    },
+    "maintainance": {
+      "roomNo": "Room no",
+      "maintenance": "Maintenance",
+      "vehicleCharge": "Vehicle charge",
+      "penalty": "Penalty",
+      "finalAmount": "Final Amount",
+      "paid": "Paid",
+      "online": "Online",
+      "cash": "cash"
+    },
+    "errorMsg": {
+      "noSocietyRegistered": "No Society Found"
+    },
+    "iOT": {
+      "myDevices": "My devices",
+      "wifiConnection": "Wifi Connection"
+    },
+    "dialogs": {
+      "confirmRequest": "Would you like to sent request ?",
+      "makeMeOwner": "Make me owner",
+      "yourRequestHasBeenSent": "Please wait, your request has been sent",
+      "registerYourAccountWithThisRoom": "Register your account with this room?",
+      "requestSent": "Request sent",
+      "ownerWillAuthenticateYourRequest": "We will notify once you, once your room owner will accept your request"
+    }
+  }
+
+}

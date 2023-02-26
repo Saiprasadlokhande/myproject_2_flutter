@@ -12,8 +12,9 @@ class MobileHomeScreen extends StatefulHookConsumerWidget {
 class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue data = ref.read(getInitData);
     var userPods = ref.read(userPod);
+    AsyncValue data = ref.read(getInitData);
+
     return Scaffold(
         backgroundColor: kPrimaryColor,
         body: data.when(data: (value) {
@@ -35,7 +36,11 @@ class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
                         centerTitle: false,
                         titlePadding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8),
-                        title: customTile(),
+                        title: GestureDetector(
+                            onTap: () {
+                              context.pushNamed(myAccount);
+                            },
+                            child: customTile()),
                         // background: Padding(
                         //   padding: EdgeInsets.symmetric(
                         //       horizontal: 5.w, vertical: 5.h),
@@ -105,15 +110,17 @@ class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
                               shrinkWrap: true,
                               padding: EdgeInsets.zero,
                               itemBuilder: (context, i) {
-                                return ExpansionTile(
-                                    title: customText(msg: 'Society Address'),
-                                    children: [RoomWidget()]);
+                                return RoomWidget(
+                                  i: i,
+                                );
                               })
                           : GestureDetector(
                               onTap: () {
                                 router.pushNamed(searchSociety);
                               },
-                              child: customText(msg: 'No Society Found'))
+                              child: customText(
+                                  msg:
+                                      "${Global.localisation.en!.errorMsg!.noSocietyRegistered}"))
                     ],
                   ),
                 )),
@@ -126,15 +133,17 @@ class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
   }
 }
 
-class RoomWidget extends StatelessWidget {
-  const RoomWidget({Key? key}) : super(key: key);
+class RoomWidget extends ConsumerWidget {
+  int i;
+  RoomWidget({Key? key, required this.i}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    var userPods = ref.watch(userPod);
     return Card(
       color: kPrimaryColor,
       child: Container(
-        height: 50.h,
+        height: 40.h,
         width: 85.w,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -143,6 +152,21 @@ class RoomWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customText(msg: userPods.myRoom![i]!.roomDetails!.room),
+                customText(
+                    msg: userPods
+                        .myRoom![i]!.societyDetails!.address!.fullAddress,
+                    maxLines: 2)
+              ],
+            ),
+            SizedBox(
+              height: 3.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +175,8 @@ class RoomWidget extends StatelessWidget {
                     msg: 'My Home',
                     icon: Icons.home,
                     onTap: () {
-                      context.goNamed(myHome);
+                      context.goNamed(myHome,
+                          params: {"roomId": "${userPods.myRoom![i]!.roomId}"});
                     }),
                 circularIcon(
                     msg: 'Maintenance',

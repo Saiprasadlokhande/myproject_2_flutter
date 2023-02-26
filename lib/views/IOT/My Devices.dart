@@ -12,6 +12,7 @@ class _MyDevicesState extends State<MyDevices> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
+      appBar: AppBar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
@@ -35,7 +36,7 @@ class _MyDevicesState extends State<MyDevices> {
                   const SizedBox(
                     width: 15,
                   ),
-                  customText(msg: 'My devices'),
+                  customText(msg: Global.localisation.en!.iOT!.myDevices!),
                   const SizedBox(
                     width: 15,
                   ),
@@ -43,7 +44,8 @@ class _MyDevicesState extends State<MyDevices> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      customText(msg: 'Wifi Connection'),
+                      customText(
+                          msg: Global.localisation.en!.iOT!.wifiConnection!),
                       // Switch(value: value, onChanged: onChanged)
                     ],
                   )

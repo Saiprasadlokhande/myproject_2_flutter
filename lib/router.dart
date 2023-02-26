@@ -2,12 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:myproject_2_flutter/import_helper.dart';
 import 'package:myproject_2_flutter/views/IOT/My%20Devices.dart';
 import 'package:myproject_2_flutter/views/login&register/login.dart';
+import 'package:myproject_2_flutter/views/mobileView/my_account/my_account.dart';
+import 'package:myproject_2_flutter/views/mobileView/my_account/verifyAadhar.dart';
 import 'package:myproject_2_flutter/views/mobileView/my_home/my_home_view.dart';
 import 'package:myproject_2_flutter/views/mobileView/room_registration/searchSociety.dart';
 import 'package:myproject_2_flutter/views/mobileView/room_registration/select_room.dart';
 import 'package:myproject_2_flutter/views/splashscreen.dart';
 
 const String home = 'home';
+const String myAccount = 'myAccount';
+const String verifyAadhaar = 'verifyAadhaar';
 const String splashscreen = 'splashscreen';
 const String login = 'login';
 const String register = 'register';
@@ -25,7 +29,6 @@ final router = GoRouter(
       path: '/',
       builder: (context, state) => const Splashscreen(),
       redirect: (context, state) async {
-        print("${sessionManager.signedInUser}");
         final auth = sessionManager.isSignedIn;
         if (auth) {
           return '/$home';
@@ -57,8 +60,20 @@ final router = GoRouter(
               ]),
           GoRoute(
               name: myHome,
-              path: myHome,
-              builder: (context, state) => const MyHomeView()),
+              path: "$myHome/:roomId",
+              builder: (context, state) => MyHomeView(
+                    roomId: int.parse(state.params['roomId']!),
+                  )),
+          GoRoute(
+              name: myAccount,
+              path: myAccount,
+              builder: (context, state) => MyAccount(),
+              routes: [
+                GoRoute(
+                    name: verifyAadhaar,
+                    path: verifyAadhaar,
+                    builder: (context, state) => const VerifyAadhar()),
+              ]),
           GoRoute(
               name: myMaintenanceBook,
               path: myMaintenanceBook,

@@ -10,8 +10,15 @@ class RoomPod extends StateNotifier<RoomStateModel> {
   Ref ref;
   RoomPod(this.ref) : super(RoomStateModel());
 
-  List<String> blocks = [];
-  List<List<Rooms>> blocksWiseRoom = [];
+  clearAll() {
+    state = state.copyWith(
+        blocks: [],
+        searchSocietyController: TextEditingController(),
+        searchedSocietyList: [],
+        blocksWiseRoom: [],
+        roomList: [],
+        selectedSociety: null);
+  }
 
   getSearchedSociety(String text) async {
     List<Society> societyList = [];
@@ -27,17 +34,15 @@ class RoomPod extends StateNotifier<RoomStateModel> {
   }
 
   getBlock() {
+    List<String> blocks = [];
+    List<List<Rooms>> blocksWiseRoom = [];
     int blockCount = state.selectedSociety!.totalBlock;
     blocks.clear();
     for (int i = 0; i < blockCount; i++) {
       debugPrint(String.fromCharCode(65 + i));
       blocks.add(String.fromCharCode(65 + i));
     }
-    getBlockWiseRoom();
-  }
 
-  getBlockWiseRoom() {
-    blocksWiseRoom = [];
     for (int i = 0; i < blocks.length; i++) {
       List<Rooms> roomList = [];
       for (int j = 0; j < state.selectedSociety!.rooms!.length; j++) {
@@ -50,6 +55,7 @@ class RoomPod extends StateNotifier<RoomStateModel> {
       }
       blocksWiseRoom.add(roomList);
     }
-    state.blocksWiseRoom = blocksWiseRoom;
+
+    state = state.copyWith(blocks: blocks, blocksWiseRoom: blocksWiseRoom);
   }
 }

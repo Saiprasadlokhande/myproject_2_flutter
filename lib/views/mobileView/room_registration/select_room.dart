@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:myproject_2_flutter/import_helper.dart';
 import 'package:myproject_2_flutter/riverpod/roomPod.dart';
-import 'package:myproject_2_flutter/widgets/custom_appBar.dart';
 import 'package:myproject_2_flutter/widgets/custom_textfield.dart';
 
 class SelectRoom extends StatefulHookConsumerWidget {
@@ -20,38 +19,47 @@ class _SelectRoomState extends ConsumerState<SelectRoom> {
       const Duration(milliseconds: 200),
       () async {
         ref.read(roomPods.notifier).getBlock();
-        // ref.read(roomPods.notifier).getBlockWiseRoom();
-        // await ref.read(roomPods.notifier).getRoomsOfSociety();
+        // roomPodNotifier.getBlockWiseRoom();
+        // await roomPodNotifier.getRoomsOfSociety();
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    var roomPod = ref.watch(roomPods);
+    var roomPodNotifier = ref.watch(roomPods.notifier);
     return Scaffold(
-      appBar: CustomAppbar(
-        title: "Select Room",
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        title:
+            customText(msg: Global.localisation.en!.mySociety!.searchSociety!),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: kTitleColor),
+            onPressed: () {
+              roomPodNotifier.clearAll();
+              Navigator.pop(context);
+            }),
       ),
       body: Container(
         width: 100.w,
         height: 100.h,
         padding: EdgeInsets.only(top: 2.h),
         decoration: const BoxDecoration(color: kPrimaryColor),
-        child: ref.read(roomPods).selectedSociety!.rooms!.isEmpty
+        child: roomPod.selectedSociety!.rooms!.isEmpty || roomPod.blocks == null
             ? const Center(child: CircularProgressIndicator(color: kTitleColor))
             : ListView.separated(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: ref.read(roomPods.notifier).blocksWiseRoom.length,
+                itemCount: roomPod.blocks!.length,
                 itemBuilder: (_, i) {
                   return Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        customText(
-                            msg:
-                                'Block ${ref.read(roomPods.notifier).blocks[i]}'),
+                        customText(msg: 'Block ${roomPod.blocks![i]}'),
                         const Divider(
                           color: kSubtitleColor,
                         ),
@@ -60,10 +68,7 @@ class _SelectRoomState extends ConsumerState<SelectRoom> {
                         ),
                         GridView.builder(
                             shrinkWrap: true,
-                            itemCount: ref
-                                .read(roomPods.notifier)
-                                .blocksWiseRoom[i]
-                                .length,
+                            itemCount: roomPod.blocksWiseRoom![i].length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 4,
@@ -77,15 +82,160 @@ class _SelectRoomState extends ConsumerState<SelectRoom> {
                                   //       .rooms![p]
                                   //       .room
                                   //       .contains(
-                                  //           ref.read(roomPods.notifier).blocks[i])
+                                  //           roomPodNotifier.blocks[i])
                                   //   ?
-                                  CustomTextFieldBox(
-                                      child: Center(
-                                          child: customText(
-                                              msg: ref
-                                                  .read(roomPods.notifier)
-                                                  .blocksWiseRoom[i][p]
-                                                  .room)))
+                                  GestureDetector(
+                                onTap: () async {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return AlertDialog(
+                                          content: SizedBox(
+                                            height: 30.h,
+                                            width: 75.w,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                customText(
+                                                    msg: Global
+                                                        .localisation
+                                                        .en!
+                                                        .dialogs!
+                                                        .registerYourAccountWithThisRoom!,
+                                                    overFlow:
+                                                        TextOverflow.visible,
+                                                    fontSize: 12.sp,
+                                                    color: kPrimaryColor),
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                          width: 25.w,
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              router.pop();
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                color:
+                                                                    kFontColor,
+                                                              ),
+                                                              // width: 40.w,
+                                                              // height: 5.h,
+                                                              constraints:
+                                                                  BoxConstraints(
+                                                                      maxWidth:
+                                                                          40.w,
+                                                                      maxHeight:
+                                                                          5.h),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4),
+                                                              child: Center(
+                                                                  child: customText(
+                                                                      msg:
+                                                                          "${Global.localisation.en!.common!.cancel}",
+                                                                      color:
+                                                                          kPrimaryColor)),
+                                                            ),
+                                                          )),
+                                                      SizedBox(
+                                                          width: 25.w,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              bool val = await client
+                                                                  .userRoom
+                                                                  .sendRequestToJoinRoom(
+                                                                      roomId: ref
+                                                                          .read(
+                                                                              roomPods)
+                                                                          .blocksWiseRoom![
+                                                                              i]
+                                                                              [
+                                                                              p]
+                                                                          .id!);
+
+                                                              customToast(val
+                                                                  ? Global
+                                                                      .localisation
+                                                                      .en!
+                                                                      .common!
+                                                                      .success!
+                                                                  : Global
+                                                                      .localisation
+                                                                      .en!
+                                                                      .common!
+                                                                      .failed!);
+                                                              if (val) {
+                                                                router
+                                                                    .pushReplacementNamed(
+                                                                        home);
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                color:
+                                                                    kFontColor,
+                                                              ),
+                                                              // width: 40.w,
+                                                              // height: 5.h,
+                                                              constraints:
+                                                                  BoxConstraints(
+                                                                      maxWidth:
+                                                                          40.w,
+                                                                      maxHeight:
+                                                                          5.h),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4),
+                                                              child: Center(
+                                                                  child: customText(
+                                                                      msg:
+                                                                          "${Global.localisation.en!.common!.confirm}",
+                                                                      color:
+                                                                          kPrimaryColor)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: CustomTextFieldBox(
+                                    child: Center(
+                                        child: customText(
+                                            msg: ref
+                                                .read(roomPods)
+                                                .blocksWiseRoom![i][p]
+                                                .room))),
+                              )
                                   // : SizedBox()
                                   ;
                             })

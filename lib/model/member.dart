@@ -3,17 +3,22 @@ import 'package:serverpod_auth_client/module.dart';
 
 class RoomMember {
   UserInfo? userInfo;
+  Members? myInfo;
   List<Members?>? members;
   List<UserRoom?>? myRoom;
-  RoomMember({this.userInfo, this.members, this.myRoom});
 
-  copyWith({
+  RoomMember({this.myInfo, this.userInfo, this.members, this.myRoom});
+
+  RoomMember copyWith({
     UserInfo? userInfo,
+    Members? myInfo,
     List<Members?>? members,
     List<UserRoom?>? myRoom,
   }) {
-    userInfo = userInfo ?? this.userInfo;
-    members = members ?? this.members;
-    myRoom = myRoom ?? this.myRoom;
+    return RoomMember(
+        userInfo: userInfo ?? this.userInfo,
+        myInfo: myInfo ?? this.myInfo,
+        members: members ?? this.members,
+        myRoom: myRoom ?? this.myRoom);
   }
 }
